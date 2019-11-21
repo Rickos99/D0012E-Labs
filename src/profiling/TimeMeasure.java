@@ -25,8 +25,16 @@ public class TimeMeasure {
 		return stop - start;
 	}
 	
+	/**
+	 * 
+	 * @return measured time in milliseconds
+	 */
+	public double getMilliSeconds() {
+		return (stop - start) * Math.pow(10, -6);
+	}
+	
 	@Override
 	public String toString() {
-		return ((stop - start) * Math.pow(10, -6)) + " ms";
+		return getMilliSeconds() + " ms";
 	}
 }

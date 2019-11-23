@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MergeSort {
 	public static void main(String[] args){
-		int[] input = {2, 1, 4, 3, 7, 6, 4, 2, 3, 2};
+		int[] input = {2, 1, 4, 3, 7, 6, 4, 2, 3, 2, 3};
 		int k = 2;
 		sort(input, k);
 	}

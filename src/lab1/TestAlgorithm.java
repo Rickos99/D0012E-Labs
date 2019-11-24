@@ -1,7 +1,6 @@
 package lab1;
 
 import java.util.Arrays;
-import java.util.Iterator;
 
 import profiling.ArraysGenerator;
 import profiling.TimeMeasure;
@@ -9,12 +8,14 @@ import profiling.TimeMeasure;
 public class TestAlgorithm {
 
 	public static void main(String[] args) {
-		final int tests = 10;
-		final int subArrayLength = 5;
-		final int[] dataLengths = {10,100,1000,10000,50000, 100000};
+		final int tests = 50;
+		final int subArrayLength = 50;
+		final int[] dataLengths = {100,1000,10000,50000};
 		
 		testMergeAlgorithms(tests, dataLengths, subArrayLength);
 		testSortAlgorithms(tests, dataLengths);
+		
+		System.out.println("Finished");
 	}
 	
 	public static void testMergeAlgorithms(int tests, int[] dataLengths, int subArrayLength) {
@@ -26,7 +27,10 @@ public class TestAlgorithm {
 			double[] execBSort = new double[tests];
 
 			for (int i = 0; i < tests; i++) {
-				final int[] arr = arrayGenerator.randomArray(dataLength);
+//				final int[] arr = arrayGenerator.randomArray(dataLength);
+//				final int[] arr = arrayGenerator.randomKSorted(dataLength, 10);
+//				final int[] arr = arrayGenerator.randomSorted(dataLength);
+				final int[] arr = arrayGenerator.randomReversed(dataLength);
 				int[] arrCopy;
 				
 				arrCopy = Arrays.copyOf(arr, arr.length);
@@ -65,7 +69,10 @@ public class TestAlgorithm {
 			double[] execBSort = new double[tests];
 
 			for (int i = 0; i < tests; i++) {
-				final int[] arr = arrayGenerator.randomArray(dataLength);
+//				final int[] arr = arrayGenerator.randomArray(dataLength);
+//				final int[] arr = arrayGenerator.randomKSorted(dataLength, 10);
+//				final int[] arr = arrayGenerator.randomSorted(dataLength);
+				final int[] arr = arrayGenerator.randomReversed(dataLength);
 				int[] arrCopy;
 				
 				arrCopy = Arrays.copyOf(arr, arr.length);
@@ -96,7 +103,7 @@ public class TestAlgorithm {
 	}
 	
 	private static double roundTwoDecimals(double value) {
-		return (double)Math.round(value * 100d) / 100d;
+		return (double)Math.round(value * 10000d) / 10000d;
 	}
 	
 	private static double average(double[] values) {

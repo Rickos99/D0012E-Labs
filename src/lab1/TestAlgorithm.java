@@ -8,8 +8,8 @@ import profiling.TimeMeasure;
 public class TestAlgorithm {
 
 	public static void main(String[] args) {
-		testMergeAlgorithms();
-//		testSortAlgorithms();
+//		testMergeAlgorithms();
+		testSortAlgorithms();
 	}
 	
 	public static void testMergeAlgorithms() {

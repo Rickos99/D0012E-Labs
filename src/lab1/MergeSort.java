@@ -7,7 +7,7 @@ import profiling.ArraysGenerator;
 public class MergeSort {
 	public static void main(String[] args){
 //		int[] input = { 1239, 2350, 19530 };
-//		int[] input2 = { 34176, 61218, 65344 };
+//		int[] input2 = { 34176, 61218, 65344, 100000};
 //		System.out.println(Arrays.toString(merge(input, input2)));
 
 		int[] arr = new ArraysGenerator().randomArray(21);
@@ -45,9 +45,15 @@ public class MergeSort {
 		int len = input.length;
 		if (len == 1)
 			return input;
-		else if (len == 2)
+		else if (len == 2) {
+			if(input[0] == null) {
+				return input;
+			}
+			else if(input[1] == null) {
+				return input;
+			}
 			return new int[][] { merge(input[0], input[1]) };
-
+		}
 		int pointer = 0, index = 0;
 		int arrays = (int) Math.ceil((double) len / 2);
 		int[][] merged = new int[arrays][];

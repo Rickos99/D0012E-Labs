@@ -8,7 +8,15 @@ import profiling.TimeMeasure;
 public class TestAlgorithm {
 
 	public static void main(String[] args) {
+		testMergeAlgorithms();
+//		testSortAlgorithms();
+	}
+	
+	public static void testMergeAlgorithms() {
+		
+	}
 
+	public static void testSortAlgorithms() {
 		TimeMeasure timer = new TimeMeasure();
 		ArraysGenerator arrayGenerator = new ArraysGenerator();
 		

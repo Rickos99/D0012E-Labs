@@ -9,11 +9,11 @@ public class TestAlgorithm {
 
 	public static void main(String[] args) {
 		final int tests = 50;
-		final int subArrayLength = 50;
-		final int[] dataLengths = {100,1000,10000,50000};
+		final int subArrayLength = 5;
+		final int[] dataLengths = {100,1000,10000,50000, 100000};
 		
 		testMergeAlgorithms(tests, dataLengths, subArrayLength);
-		testSortAlgorithms(tests, dataLengths);
+		//testSortAlgorithms(tests, dataLengths);
 		
 		System.out.println("Finished");
 	}
@@ -23,14 +23,15 @@ public class TestAlgorithm {
 		ArraysGenerator arrayGenerator = new ArraysGenerator();
 		
 		for (int dataLength : dataLengths) {
-			double[] execInsertionSort = new double[tests];
-			double[] execBSort = new double[tests];
+			double[] execMergeInsertionSort = new double[tests];
+			double[] execMergeBSort = new double[tests];
+			double[] execMerge = new double[tests];
 
 			for (int i = 0; i < tests; i++) {
-//				final int[] arr = arrayGenerator.randomArray(dataLength);
+				final int[] arr = arrayGenerator.randomArray(dataLength);
 //				final int[] arr = arrayGenerator.randomKSorted(dataLength, 10);
 //				final int[] arr = arrayGenerator.randomSorted(dataLength);
-				final int[] arr = arrayGenerator.randomReversed(dataLength);
+//				final int[] arr = arrayGenerator.randomReversed(dataLength);
 				int[] arrCopy;
 				
 				arrCopy = Arrays.copyOf(arr, arr.length);
@@ -38,9 +39,9 @@ public class TestAlgorithm {
 				
 				// Test insertionSort and measure execution time
 				timer.start();
-				MergeSort.sort(arrCopy, subArrayLength);
+				MergeInsSort.sort(arrCopy, subArrayLength);
 				timer.stop();
-				execInsertionSort[i] = timer.getMilliSeconds();
+				execMergeInsertionSort[i] = timer.getMilliSeconds();
 				
 				timer.reset();
 				arrCopy = Arrays.copyOf(arr, arr.length);
@@ -49,13 +50,23 @@ public class TestAlgorithm {
 				timer.start();
 				MergebSort.sort(arrCopy, subArrayLength);
 				timer.stop();
-				execBSort[i] = timer.getMilliSeconds();
+				execMergeBSort[i] = timer.getMilliSeconds();
+				
+				timer.reset();
+				arrCopy = Arrays.copyOf(arr, arr.length);
+
+				// Test regular merge sort and measure execution time
+				timer.start();
+				MergeSort.sort(arrCopy);
+				timer.stop();
+				execMerge[i] = timer.getMilliSeconds();
 			}
 
 			System.out.println("New Test");
 			System.out.println("n:" + dataLength +  ", k:" + subArrayLength);
-			System.out.println("Merge insertionSort: " + roundTwoDecimals(average(execInsertionSort)) + " ms");
-			System.out.println("Merge bSort:         " + roundTwoDecimals(average(execBSort)) + " ms");
+			System.out.println("Merge insertionSort: " + roundTwoDecimals(average(execMergeInsertionSort)) + " ms");
+			System.out.println("Merge bSort:         " + roundTwoDecimals(average(execMergeBSort)) + " ms");
+			System.out.println("Merge regular:       " + roundTwoDecimals(average(execMerge)) + " ms");
 			System.out.println("");
 		}
 	}
@@ -69,10 +80,10 @@ public class TestAlgorithm {
 			double[] execBSort = new double[tests];
 
 			for (int i = 0; i < tests; i++) {
-//				final int[] arr = arrayGenerator.randomArray(dataLength);
+				final int[] arr = arrayGenerator.randomArray(dataLength);
 //				final int[] arr = arrayGenerator.randomKSorted(dataLength, 10);
 //				final int[] arr = arrayGenerator.randomSorted(dataLength);
-				final int[] arr = arrayGenerator.randomReversed(dataLength);
+//				final int[] arr = arrayGenerator.randomReversed(dataLength);
 				int[] arrCopy;
 				
 				arrCopy = Arrays.copyOf(arr, arr.length);

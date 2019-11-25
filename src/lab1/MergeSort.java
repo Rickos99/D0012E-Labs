@@ -1,99 +1,80 @@
 package lab1;
 
-import java.util.*;
+import java.util.Arrays;
+
+import com.sun.tracing.dtrace.ArgsAttributes;
 
 import profiling.ArraysGenerator;
 
 public class MergeSort {
-	public static void main(String[] args){
-//		int[] input = { 1239, 2350, 19530 };
-//		int[] input2 = { 34176, 61218, 65344, 100000};
-//		System.out.println(Arrays.toString(merge(input, input2)));
+	// Merges two subarrays of arr[].
+	// First subarray is arr[l..m]
+	// Second subarray is arr[m+1..r]
+	private static void merge(int arr[], int l, int m, int r) {
+		// Find sizes of two subarrays to be merged
+		int n1 = m - l + 1;
+		int n2 = r - m;
 
-		int[] arr = new ArraysGenerator().randomArray(21);
-		System.out.println(Arrays.toString(arr));
-		int[] sorted2 = sort(arr, 4);
-		System.out.println(Arrays.toString(sorted2));
-	}
-	
-	public static int[] sort(int[] input, int k) {
-		int[][] subArrays = createSubarrays(input, k);
-		int[][] merged = mergeAll(subArrays);
-		return merged[0];
-	}
-	
-	private static int[] merge(int[] input1, int[] input2) {
-		int[] sorted = new int[input1.length + input2.length];
-		int i = 0, j = 0, k = 0;
+		/* Create temp arrays */
+		int L[] = new int[n1];
+		int R[] = new int[n2];
 
-		while (i < input1.length && j < input2.length) {
-			sorted[k++] = input1[i] <= input2[j] ? input1[i++] : input2[j++];
-		}
+		/* Copy data to temp arrays */
+		for (int i = 0; i < n1; ++i)
+			L[i] = arr[l + i];
+		for (int j = 0; j < n2; ++j)
+			R[j] = arr[m + 1 + j];
 
-		while (i < input1.length) {
-			sorted[k++] = input1[i++];
-		}
+		/* Merge the temp arrays */
 
-		while (j < input2.length) {
-			sorted[k++] = input2[j++];
-		}
+		// Initial indexes of first and second subarrays
+		int i = 0, j = 0;
 
-		return sorted;
-	}
-	
-	private static int[][] mergeAll(int[][] input) {
-		int len = input.length;
-		if (len == 1)
-			return input;
-		else if (len == 2) {
-			if(input[0] == null) {
-				return input;
+		// Initial index of merged subarry array
+		int k = l;
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
+				i++;
+			} else {
+				arr[k] = R[j];
+				j++;
 			}
-			else if(input[1] == null) {
-				return input;
-			}
-			return new int[][] { merge(input[0], input[1]) };
+			k++;
 		}
-		int pointer = 0, index = 0;
-		int arrays = (int) Math.ceil((double) len / 2);
-		int[][] merged = new int[arrays][];
-		while (pointer + 2 < len) {
-			int[] in1 = input[pointer], in2 = input[pointer + 1];
-			int[] tmp = merge(in1, in2);
-			merged[index] = tmp;
-			pointer += 2;
-			index += 1;
+
+		/* Copy remaining elements of L[] if any */
+		while (i < n1) {
+			arr[k] = L[i];
+			i++;
+			k++;
 		}
-		
-		// Prevent last element in merged array to be null or empty
-		if (len % 2 != 0) {
-			merged[arrays - 1] = input[len - 1];
+
+		/* Copy remaining elements of R[] if any */
+		while (j < n2) {
+			arr[k] = R[j];
+			j++;
+			k++;
 		}
-		return mergeAll(merged);
 	}
 
-	// källa för delar av koden https://stackoverflow.com/questions/19237371/split-array-into-pieces-of-x-length
-	private static int[][] createSubarrays(int[] input, int k) {
-		int len = input.length;
-		int counter = 0;
-		
-		// skapa en extra array om antalet sublistor inte går jämt ut
-		int arrays = len % k == 0 ? len/k : len/k + 1;
-		int[][] newArray = new int[arrays][k];
-		
-		//Delar upp så många delar den kan i k stora subarrays som läggs in i
-		// en array av arrays
-		for (int i = 0; i <= len - k; i += k) {
-		    newArray[counter++] = InsertionSort.sort(Arrays.copyOfRange(input, i, i + k));
+	public static void sort(int arr[]) {
+		sort(arr, 0, arr.length - 1);
+	}
+	
+	// Main function that sorts arr[l..r] using
+	// merge()
+	public static void sort(int arr[], int l, int r) {
+		if (l < r) {
+			// Find the middle point
+			int m = (l + r) / 2;
+
+			// Sort first and second halves
+			sort(arr, l, m);
+			sort(arr, m + 1, r);
+
+			// Merge the sorted halves
+			merge(arr, l, m, r);
 		}
-		
-		//Om vi har rest så lägger vi till den i en mindre subarray och lägger in
-		// i array-arrayen
-		if (len % k != 0) {
-//			System.out.println(counter);
-		    newArray[counter] = InsertionSort.sort(Arrays.copyOfRange(input, len - len % k, len - 1));
-		}
-		
-		return newArray;
 	}
 }

@@ -8,9 +8,9 @@ import profiling.TimeMeasure;
 public class TestAlgorithm {
 
 	public static void main(String[] args) {
-		final int tests = 50;
-		final int subArrayLength = 5;
-		final int[] dataLengths = {100,1000,10000,50000, 100000};
+		final int tests = 100;
+		final int subArrayLength = 50;
+		final int[] dataLengths = {100000};
 		
 		testMergeAlgorithms(tests, dataLengths, subArrayLength);
 		//testSortAlgorithms(tests, dataLengths);

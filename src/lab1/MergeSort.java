@@ -1,11 +1,5 @@
 package lab1;
 
-import java.util.Arrays;
-
-import com.sun.tracing.dtrace.ArgsAttributes;
-
-import profiling.ArraysGenerator;
-
 public class MergeSort {
 	// Merges two subarrays of arr[].
 	// First subarray is arr[l..m]

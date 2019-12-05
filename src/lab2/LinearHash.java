@@ -1,5 +1,6 @@
 package lab2;
 
+
 class LinearHash {
 	private int currentSize, maxSize;
 	private int[] keys;
@@ -13,7 +14,12 @@ class LinearHash {
 	}
 	private int hash(int key) {
 		return key % maxSize;
-	}
+    }
+
+    private int linearProbe(int key, int offset){
+        return (hash(key) + offset) % keys.length;
+    }
+    
 	public void insert(int key) {
 		int tmp = hash(key);
 		int i = 0;
@@ -33,5 +39,13 @@ class LinearHash {
 			i = i + 1;
 		}while(i + tmp != maxSize);
 		
-	}
+    }
+    
+    public void delete(int key){
+        throw new UnsupportedOperationException("The method LinearHash.delete has not been implmented yet");
+    }
+
+    public void search(int key){
+        throw new UnsupportedOperationException("The method LinearHash.search has not been implmented yet");
+    }
 }

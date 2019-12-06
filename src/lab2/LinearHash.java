@@ -45,8 +45,16 @@ class LinearHash {
         throw new UnsupportedOperationException("The method LinearHash.delete has not been implmented yet");
     }
 
-    public void search(int key){
-        throw new UnsupportedOperationException("The method LinearHash.search has not been implmented yet");
+    public int search(int key){
+        int i = hash(key);
+        while(keys[i] != null) {
+        	
+        	if(keys[i] == key) {
+        		return i;
+        	}
+        	i = (i + 1)%maxSize;
+        }
+        return null;
     }
     
     @Override

@@ -22,8 +22,10 @@ class HashTest {
 		System.out.println("Number of values: " + inputs.length);
 		for (int input : inputs) {
 			linearHash.insert(input);
+			System.out.println("Search for " + input + " found at " + linearHash.search(input));
 			hashTableVariant.insert(input);
 		}
+		System.out.println("Removed key" + inputs[3] + " from address " + linearHash.delete(inputs[3]));
 		System.out.println(linearHash.toString());
 		System.out.println(hashTableVariant.toString());
 		System.out.println("---------------------------------------");

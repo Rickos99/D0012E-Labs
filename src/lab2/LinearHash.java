@@ -41,20 +41,25 @@ class LinearHash {
 		System.out.println("ERROR: Hash Table overflow, key " + key);
     }
     
-    public void delete(int key){
-        throw new UnsupportedOperationException("The method LinearHash.delete has not been implmented yet");
+	public int delete(int key){
+    	int address = search(key);
+    	if(address == -1) {
+    		return -1;
+    	}
+    	keys[address] = 0;
+    	return address;
     }
 
     public int search(int key){
         int i = hash(key);
-        while(keys[i] != null) {
+        while(keys[i] != 0) {
         	
         	if(keys[i] == key) {
         		return i;
         	}
         	i = (i + 1)%maxSize;
         }
-        return null;
+        return -1;
     }
     
     @Override

@@ -1,15 +1,13 @@
 package lab2;
 
-class HashTable {
+class HashTableVariant {
     private int maxSize, currentSize;
     private int[] keys;
-    private int[] offset;
 
-    public HashTable(int capacity) {
+    public HashTableVariant(int capacity) {
         currentSize = 0;
         maxSize = capacity;
         keys = new int[maxSize];
-        offset = new int[maxSize];
     }
 
     private int hash(int key) {
@@ -25,7 +23,36 @@ class HashTable {
     }
 
     public void insert(int key) {
-        throw new UnsupportedOperationException("The method HashTableVariant.insert has not been implmented yet");
+		int i = 0;
+		int home;
+		do {
+			home = linearProbeDown(key, i); 
+			if(keys[home] == 0) {
+				keys[home] = key;
+				currentSize++;
+				return;
+			}
+			if(keys[home] == key) {
+				return;
+			}
+			i++;
+		}while(home - i >= 0);
+		
+		i=0;
+		
+		do {
+			home = linearProbeUp(key, i); 
+			if(keys[home] == 0) {
+				keys[home] = key;
+				currentSize++;
+				return;
+			}
+			if(keys[home] == key) {
+				return;
+			}
+			i++;
+		}while(i + home < maxSize);
+		System.out.println("ERROR: Hash Table V2 overflow, key " + key);
     }
     
     public void delete(int key){
@@ -34,5 +61,15 @@ class HashTable {
 
     public void search(int key){
         throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
+    }
+    
+    @Override
+    public String toString() {
+    	String res = "Content in HashTableVariant\n";
+    	for (int i = 0; i < keys.length; i++) {
+			int key = keys[i];
+			res += "[" + i +"] : " + key + "\n";
+		}
+    	return res;
     }
 }

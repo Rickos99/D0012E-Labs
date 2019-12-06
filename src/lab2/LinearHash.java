@@ -25,7 +25,7 @@ class LinearHash {
 		int i = 0;
 		int home;
 		do {
-			home = linearProbe(tmp, i); 
+			home = linearProbe(key, i); 
 			if(keys[home] == 0) {
 				keys[home] = key;
 				offset[home] = i;
@@ -38,7 +38,7 @@ class LinearHash {
 			}
 			i = i + 1;
 		}while(i + tmp != maxSize);
-		
+		System.out.println("ERROR: Hash Table overflow, key " + key);
     }
     
     public void delete(int key){

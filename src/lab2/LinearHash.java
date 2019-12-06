@@ -25,7 +25,7 @@ class LinearHash {
 		int i = 0;
 		int home;
 		do {
-			home = (tmp + i)%maxSize;
+			home = linearProbe(tmp, i); 
 			if(keys[home] == 0) {
 				keys[home] = key;
 				offset[home] = i;

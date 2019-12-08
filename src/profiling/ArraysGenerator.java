@@ -1,6 +1,8 @@
 package profiling;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ArraysGenerator {
 
@@ -50,6 +52,20 @@ public class ArraysGenerator {
 			  arr[i] = arr[arr.length -i -1];
 			  arr[arr.length -i -1] = temp;
 			}
+		return arr;
+	}
+	
+	public int[] randomUnique(int elements) {
+		List<Integer> list = new ArrayList<>(11);
+		int[] arr = new int[elements];
+		
+		for (int i = 0; i <= elements; i++){
+		    list.add(i);
+		}
+		for (int i = 0; i < elements; i++) {
+			arr[i] = list.remove((int)(Math.random() * list.size()));
+		}
+		
 		return arr;
 	}
 }

@@ -1,8 +1,12 @@
 package lab2;
 
+import profiling.TestCaseForHashTable;;
+
 class HashTableVariant {
     private int maxSize;
     private int[] keys;
+    
+    protected TestCaseForHashTable test;
     
     /**
      * Each element in primary array has a two value array for storing the number of keys 
@@ -17,22 +21,30 @@ class HashTableVariant {
         maxSize = capacity;
         keys = new int[maxSize];
         keyCounter = new int[maxSize][2];
+        
+        test = new TestCaseForHashTable(maxSize, "HashVariant");
     }
 
     private int hash(int key) {
+    	test.numberOfHashes++;
 		return key % maxSize;
     }
 
     private int linearProbe(int key, int offset){
+    	test.numberOfProbes++;
         return (hash(key) + offset) % keys.length;
     }
 
     public void insert(int key) {
+    	test.beginInsertion();
 		int home = hash(key);
 		if(keys[home] == 0) {
 			keys[home] = key;
+			test.numberOfInsertions++;
+			test.endInsertion();
 			return;
 		} else if (keys[home] == key) {
+			test.endInsertion();
 			return;
 		}
 		
@@ -41,15 +53,19 @@ class HashTableVariant {
 		} else {
 			insertUp(key, home);
 		}
+		test.endInsertion();
     }
     
     private void insertUp(int key, int home) {
     	int address, i = 0;
     	do {
-			address = linearProbe(key, i); 
+    		test.aCollisionChain++;
+    		test.numberOfCollisions++;
+			address = linearProbe(key, i);
 			if(keys[address] == 0) {
 				keys[address] = key;
 				keyCounter[home][1] = keyCounter[home][1] + 1;
+				test.numberOfInsertions++;
 				return;
 			}
 			if(keys[address] == key) {
@@ -57,16 +73,19 @@ class HashTableVariant {
 			}
 			i++;
 		}while( address + 1 < maxSize);
-    	displayTableOverflowMessage(key);
+    	registerTableOverflow(key);
     }
     
     private void insertDown(int key, int home) {
     	int address, i = 0;
     	do {
-			address = linearProbe(key, i); 
+    		test.aCollisionChain++;
+    		test.numberOfCollisions++;
+			address = linearProbe(key, i);
 			if(keys[address] == 0) {
 				keys[address] = key;
 				keyCounter[home][0] = keyCounter[home][0] + 1;
+				test.numberOfInsertions++;
 				return;
 			}
 			if(keys[address] == key) {
@@ -74,19 +93,19 @@ class HashTableVariant {
 			}
 			i--;
 		}while( address - 1 >= 0);
-    	displayTableOverflowMessage(key);
+    	registerTableOverflow(key);
     }
-    private void displayTableOverflowMessage(int key) {
-    	System.out.println("ERROR: Hash Table V2 overflow, key " + key);
+    private void registerTableOverflow(int key) {
+    	test.numberOfOverflows++;
     }
     
-    public void delete(int key){
-        throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
-    }
-
-    public void search(int key){
-        throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
-    }
+//    public void delete(int key){
+//        throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
+//    }
+//
+//    public void search(int key){
+//		throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
+//    }
     
     @Override
     public String toString() {

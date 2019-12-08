@@ -2,7 +2,7 @@ package profiling;
 
 public class TimeMeasure {
 	
-	private long start, stop;
+	private long start, stop, totalTime = 0l;
 
 	public void start() {
 		start = System.nanoTime();
@@ -10,6 +10,8 @@ public class TimeMeasure {
 	
 	public void stop() {
 		stop = System.nanoTime();
+		totalTime += stop - start;
+		reset();
 	}
 	
 	public void reset() {
@@ -22,7 +24,7 @@ public class TimeMeasure {
 	 * @return measured time in nanoseconds
 	 */
 	public long getMeasuredTime() {
-		return stop - start;
+		return totalTime;
 	}
 	
 	/**
@@ -30,7 +32,7 @@ public class TimeMeasure {
 	 * @return measured time in milliseconds
 	 */
 	public double getMilliSeconds() {
-		return (stop - start) * Math.pow(10, -6);
+		return (getMeasuredTime()) * Math.pow(10, -6);
 	}
 	
 	@Override

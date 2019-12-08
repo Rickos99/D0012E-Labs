@@ -1,65 +1,72 @@
 package lab2;
 
+import profiling.TestCaseForHashTable;
 
 class LinearHash {
-	private int currentSize, maxSize;
+	private int maxSize;
 	private int[] keys;
-	private int[] offset;
+
+	protected TestCaseForHashTable test;
 	
 	public LinearHash(int capacity) {
-		currentSize = 0;
 		maxSize = capacity;
 		keys = new int[maxSize];
-		offset = new int[maxSize];
+
+		test = new TestCaseForHashTable(maxSize, "LinearHash");
 	}
 	private int hash(int key) {
+		test.numberOfHashes++;
 		return key % maxSize;
     }
 
     private int linearProbe(int key, int offset){
+		test.numberOfProbes++;
         return (hash(key) + offset) % keys.length;
     }
     
 	public void insert(int key) {
+		test.beginInsertion();
 		int tmp = hash(key);
 		int i = 0;
-		int home;
 		do {
-			home = linearProbe(key, i); 
+			int home = linearProbe(key, i); 
 			if(keys[home] == 0) {
 				keys[home] = key;
-				offset[home] = i;
-				currentSize++;
+				test.numberOfInsertions++;
+				test.endInsertion();
 				return;
 			}
 			if(keys[home] == key) {
-				offset[home] = i;
+				test.endInsertion();
 				return;
 			}
-			i = i + 1;
+			i++;
+			test.aCollisionChain++;
+    		test.numberOfCollisions++;
 		}while(i + tmp < maxSize);
-		System.out.println("ERROR: Hash Table overflow, key " + key);
+		test.numberOfOverflows++;
+		test.endInsertion();
     }
     
-	public int delete(int key){
-    	int address = search(key);
-    	if(address == -1) {
-    		return -1;
-    	}
-    	keys[address] = 0;
-    	return address;
-    }
-
-    public int search(int key){
-        int i = hash(key);
-        while(keys[i] != 0) {
-        	if(keys[i] == key) {
-        		return i;
-        	}
-        	i = (i + 1)%maxSize;
-        }
-        return -1;
-    }
+//	public int delete(int key){
+//    	int address = search(key);
+//    	if(address == -1) {
+//    		return -1;
+//    	}
+//    	keys[address] = 0;
+//    	return address;
+//    }
+//
+//    public int search(int key){
+//        int i = hash(key);
+//        while(keys[i] != 0) {
+//        	if(keys[i] == key) {
+//        		return i;
+//        	}
+//        	i = (i + 1)%maxSize;
+//        }
+//        return -1;
+//    }
     
     @Override
     public String toString() {

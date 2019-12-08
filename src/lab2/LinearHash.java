@@ -37,7 +37,7 @@ class LinearHash {
 				return;
 			}
 			i = i + 1;
-		}while(i + tmp != maxSize);
+		}while(i + tmp < maxSize);
 		System.out.println("ERROR: Hash Table overflow, key " + key);
     }
     
@@ -53,7 +53,6 @@ class LinearHash {
     public int search(int key){
         int i = hash(key);
         while(keys[i] != 0) {
-        	
         	if(keys[i] == key) {
         		return i;
         	}

@@ -1,58 +1,81 @@
 package lab2;
 
 class HashTableVariant {
-    private int maxSize, currentSize;
+    private int maxSize;
     private int[] keys;
-
+    
+    /**
+     * Each element in primary array has a two value array for storing the number of keys 
+     * with a address greater and lower than the home address.
+     * <p>i.e the array structure is as follows:</br>
+     * 	<code>[..., [l<sub>down</sub>, l<sub>up</sub>], ...]</code>
+     * </p>
+     */
+    private int[][] keyCounter;
+    
     public HashTableVariant(int capacity) {
-        currentSize = 0;
         maxSize = capacity;
         keys = new int[maxSize];
+        keyCounter = new int[maxSize][2];
     }
 
     private int hash(int key) {
 		return key % maxSize;
     }
 
-    private int linearProbeUp(int key, int offset){
+    private int linearProbe(int key, int offset){
         return (hash(key) + offset) % keys.length;
     }
 
-    private int linearProbeDown(int key, int offset){
-        return linearProbeUp(key, -offset);
-    }
-
     public void insert(int key) {
-		int i = 0;
-		int home;
-		do {
-			home = linearProbeDown(key, i); 
-			if(keys[home] == 0) {
-				keys[home] = key;
-				currentSize++;
+		int home = hash(key);
+		if(keys[home] == 0) {
+			keys[home] = key;
+			return;
+		} else if (keys[home] == key) {
+			return;
+		}
+		
+		if(keyCounter[home][0] <= keyCounter[home][1]) {
+			insertDown(key);
+		} else {
+			insertUp(key);
+		}
+    }
+    
+    private void insertUp(int key) {
+    	int address, i = 0;
+    	do {
+			address = linearProbe(key, i); 
+			if(keys[address] == 0) {
+				keys[address] = key;
 				return;
 			}
-			if(keys[home] == key) {
+			if(keys[address] == key) {
 				return;
 			}
 			i++;
-		}while(home - i >= 0);
-		
-		i=0;
-		
-		do {
-			home = linearProbeUp(key, i); 
-			if(keys[home] == 0) {
-				keys[home] = key;
-				currentSize++;
+		}while( address + 1 < maxSize);
+    	displayTableOverflowMessage(key);
+    }
+    
+    private void insertDown(int key) {
+    	int address, i = 0;
+    	do {
+			address = linearProbe(key, i); 
+			if(keys[address] == 0) {
+				keys[address] = key;
 				return;
 			}
-			if(keys[home] == key) {
+			if(keys[address] == key) {
 				return;
 			}
-			i++;
-		}while(i + home < maxSize);
-		System.out.println("ERROR: Hash Table V2 overflow, key " + key);
+			i--;
+		}while( address - 1 >= 0);
+    	displayTableOverflowMessage(key);
+    }
+    private void displayTableOverflowMessage(int key) {
+    	System.out.println("ERROR: Hash Table V2 overflow, key " + key);
     }
     
     public void delete(int key){

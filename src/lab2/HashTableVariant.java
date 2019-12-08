@@ -37,18 +37,19 @@ class HashTableVariant {
 		}
 		
 		if(keyCounter[home][0] <= keyCounter[home][1]) {
-			insertDown(key);
+			insertDown(key, home);
 		} else {
-			insertUp(key);
+			insertUp(key, home);
 		}
     }
     
-    private void insertUp(int key) {
+    private void insertUp(int key, int home) {
     	int address, i = 0;
     	do {
 			address = linearProbe(key, i); 
 			if(keys[address] == 0) {
 				keys[address] = key;
+				keyCounter[home][1] = keyCounter[home][1] + 1;
 				return;
 			}
 			if(keys[address] == key) {
@@ -59,12 +60,13 @@ class HashTableVariant {
     	displayTableOverflowMessage(key);
     }
     
-    private void insertDown(int key) {
+    private void insertDown(int key, int home) {
     	int address, i = 0;
     	do {
 			address = linearProbe(key, i); 
 			if(keys[address] == 0) {
 				keys[address] = key;
+				keyCounter[home][0] = keyCounter[home][0] + 1;
 				return;
 			}
 			if(keys[address] == key) {

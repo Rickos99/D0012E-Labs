@@ -26,7 +26,7 @@ public class ArraysGenerator {
 		int index = 0;
 
 		for (int i = 0; i < sortedParts; i++) {
-			int[] arr = this.randomSorted(elementsInEachPart);
+			int[] arr = randomSorted(elementsInEachPart);
 			for (int value : arr) {
 				resultArr[index++] = value;
 			}
@@ -59,7 +59,7 @@ public class ArraysGenerator {
 		List<Integer> list = new ArrayList<>(11);
 		int[] arr = new int[elements];
 		
-		for (int i = 0; i <= elements; i++){
+		for (int i = 0; i < elements*10; i++){
 		    list.add(i);
 		}
 		for (int i = 0; i < elements; i++) {

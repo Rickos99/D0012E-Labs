@@ -31,19 +31,16 @@ class HashTableVariant {
     }
 
     private int linearProbe(int key, int offset){
-    	test.numberOfProbes++;
         return (hash(key) + offset) % keys.length;
     }
 
     public void insert(int key) {
     	test.beginInsertion();
 		int home = hash(key);
+		test.numberOfProbes++;
 		if(keys[home] == 0) {
 			keys[home] = key;
 			test.numberOfInsertions++;
-			test.endInsertion();
-			return;
-		} else if (keys[home] == key) {
 			test.endInsertion();
 			return;
 		}
@@ -59,8 +56,7 @@ class HashTableVariant {
     private void insertUp(int key, int home) {
     	int address, i = 0;
     	do {
-    		test.aCollisionChain++;
-    		test.numberOfCollisions++;
+    		test.numberOfProbes++;
 			address = linearProbe(key, i);
 			if(keys[address] == 0) {
 				keys[address] = key;
@@ -68,10 +64,9 @@ class HashTableVariant {
 				test.numberOfInsertions++;
 				return;
 			}
-			if(keys[address] == key) {
-				return;
-			}
 			i++;
+			test.aCollisionChain++;
+    		test.numberOfCollisions++;
 		}while( address + 1 < maxSize);
     	registerTableOverflow(key);
     }
@@ -79,8 +74,7 @@ class HashTableVariant {
     private void insertDown(int key, int home) {
     	int address, i = 0;
     	do {
-    		test.aCollisionChain++;
-    		test.numberOfCollisions++;
+			test.numberOfProbes++;
 			address = linearProbe(key, i);
 			if(keys[address] == 0) {
 				keys[address] = key;
@@ -88,24 +82,15 @@ class HashTableVariant {
 				test.numberOfInsertions++;
 				return;
 			}
-			if(keys[address] == key) {
-				return;
-			}
 			i--;
+			test.aCollisionChain++;
+			test.numberOfCollisions++;
 		}while( address - 1 >= 0);
     	registerTableOverflow(key);
     }
     private void registerTableOverflow(int key) {
     	test.numberOfOverflows++;
     }
-    
-//    public void delete(int key){
-//        throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
-//    }
-//
-//    public void search(int key){
-//		throw new UnsupportedOperationException("The method HashTableVariant.delete has not been implmented yet");
-//    }
     
     @Override
     public String toString() {

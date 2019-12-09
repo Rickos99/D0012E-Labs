@@ -16,8 +16,8 @@ public class TestCaseForHashTable {
     public TimeMeasure timer = new TimeMeasure();
     
     public TestCaseForHashTable(int maxSizeOfHashTable, String title) {
-      this.maxSize = maxSizeOfHashTable;
-      this.testTitle = title;
+      maxSize = maxSizeOfHashTable;
+      testTitle = title;
     }
     
     public void updateLongestCollisionChain() {
@@ -28,7 +28,7 @@ public class TestCaseForHashTable {
     }
     
     public double getLoadFactor() {
-		  return roundDecimals(numberOfInsertions/(numberOfInputs*1d));
+		  return roundDecimals(numberOfInsertions/(maxSize*1d));
 	  }
     
     public void beginInsertion() {

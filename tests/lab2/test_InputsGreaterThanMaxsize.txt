@@ -1,0 +1,151 @@
+--------------------- General info -------------------------
+Capacity:....................... 10
+No. input values:............... 11
+----------------- Test result: LinearHash ------------------
+Running time:................... 0.013092040000000004ms
+Longest collision-chain:........ 4
+Number of collisions:........... 6
+Number of overflows:............ 0
+Number of probes:............... 17
+Number of hashed:............... 28
+Number of insertions:........... 10
+Load factor:.................... 0.9781840000000002
+----------------- Test result: HashVariant -----------------
+Running time:................... 0.011404020000000004ms
+Longest collision-chain:........ 1
+Number of collisions:........... 2
+Number of overflows:............ 1
+Number of probes:............... 2
+Number of hashed:............... 13
+Number of insertions:........... 9
+Load factor:.................... 0.8927379999999995
+------------------------------------------------------------
+
+
+
+--------------------- General info -------------------------
+Capacity:....................... 100
+No. input values:............... 110
+----------------- Test result: LinearHash ------------------
+Running time:................... 0.05119416000000001ms
+Longest collision-chain:........ 93
+Number of collisions:........... 920
+Number of overflows:............ 9
+Number of probes:............... 1020
+Number of hashed:............... 1130
+Number of insertions:........... 100
+Load factor:.................... 0.9163799999999993
+----------------- Test result: HashVariant -----------------
+Running time:................... 0.035322040000000006ms
+Longest collision-chain:........ 14
+Number of collisions:........... 85
+Number of overflows:............ 10
+Number of probes:............... 85
+Number of hashed:............... 195
+Number of insertions:........... 99
+Load factor:.................... 0.9029119999999996
+------------------------------------------------------------
+
+
+
+--------------------- General info -------------------------
+Capacity:....................... 1000
+No. input values:............... 1100
+----------------- Test result: LinearHash ------------------
+Running time:................... 1.5584751999999997ms
+Longest collision-chain:........ 994
+Number of collisions:........... 94673
+Number of overflows:............ 99
+Number of probes:............... 95674
+Number of hashed:............... 96774
+Number of insertions:........... 1000
+Load factor:.................... 0.9099279999999993
+----------------- Test result: HashVariant -----------------
+Running time:................... 0.31088698000000003ms
+Longest collision-chain:........ 198
+Number of collisions:........... 6519
+Number of overflows:............ 100
+Number of probes:............... 6519
+Number of hashed:............... 7619
+Number of insertions:........... 999
+Load factor:.................... 0.9086320000000003
+------------------------------------------------------------
+
+
+
+--------------------- General info -------------------------
+Capacity:....................... 10000
+No. input values:............... 11000
+----------------- Test result: LinearHash ------------------
+Running time:................... 66.04710472ms
+Longest collision-chain:........ 9995
+Number of collisions:........... 9495930
+Number of overflows:............ 999
+Number of probes:............... 9505930
+Number of hashed:............... 9516930
+Number of insertions:........... 10000
+Load factor:.................... 0.9091939999999991
+----------------- Test result: HashVariant -----------------
+Running time:................... 5.294244699999999ms
+Longest collision-chain:........ 2828
+Number of collisions:........... 660311
+Number of overflows:............ 1000
+Number of probes:............... 660311
+Number of hashed:............... 671311
+Number of insertions:........... 9999
+Load factor:.................... 0.9090619999999997
+------------------------------------------------------------
+
+
+
+--------------------- General info -------------------------
+Capacity:....................... 100000
+No. input values:............... 110000
+----------------- Test result: LinearHash ------------------
+Running time:................... 4176.221477039999ms
+Longest collision-chain:........ 99995
+Number of collisions:........... 949963204
+Number of overflows:............ 9999
+Number of probes:............... 950063205
+Number of hashed:............... 950173205
+Number of insertions:........... 100000
+Load factor:.................... 0.9091000000000002
+----------------- Test result: HashVariant -----------------
+Running time:................... 307.57704559999996ms
+Longest collision-chain:........ 32821
+Number of collisions:........... 66424949
+Number of overflows:............ 10000
+Number of probes:............... 66424949
+Number of hashed:............... 66534949
+Number of insertions:........... 99999
+Load factor:.................... 0.9091000000000002
+------------------------------------------------------------
+
+
+
+--------------------- General info -------------------------
+Capacity:....................... 1000000
+No. input values:............... 1100000
+----------------- Test result: LinearHash ------------------
+Running time:................... 417257.4539691ms
+Longest collision-chain:........ 999994
+Number of collisions:........... 510332144
+Number of overflows:............ 99999
+Number of probes:............... 511332144
+Number of hashed:............... 512432144
+Number of insertions:........... 1000000
+Load factor:.................... 0.9091000000000002
+----------------- Test result: HashVariant -----------------
+Running time:................... 30733.19217046001ms
+Longest collision-chain:........ 358076
+Number of collisions:........... -1945960656
+Number of overflows:............ 100000
+Number of probes:............... -1945960656
+Number of hashed:............... -1944860656
+Number of insertions:........... 999999
+Load factor:.................... 0.9091000000000002
+------------------------------------------------------------
+
+
+
+Finished in 7.21h
